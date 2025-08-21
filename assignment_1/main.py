@@ -12,13 +12,17 @@ def print_image_information(image):
 def print_camera_information():
     print("Hello")
     cam = cv2.VideoCapture(0)
+    if not cam.isOpened():
+        return
+
+    fps = cam.get(cv2.CAP_PROP_FPS)
     frame_width = int(cam.get(cv2.CAP_PROP_FRAME_WIDTH))
     frame_height = int(cam.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
-    print(frame_width)
-    print(frame_height)
-
-
+    with open("solutions/camera_outputs.txt", "w") as file:
+        file.write(f"fps:\t{fps}\n")
+        file.write(f"height:\t{frame_height}\n")
+        file.write(f"width:\t{frame_width}\n")
 
 def main():
     image = cv2.imread("pictures/lena-1.png", cv2.IMREAD_UNCHANGED)
